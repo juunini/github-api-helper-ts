@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "ESNext"
+    ],
+    "module": "ESNext",
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "strict": true,
+    "downlevelIteration": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": false,
+    "types": ["bun-types"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
