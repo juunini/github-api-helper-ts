@@ -12,7 +12,7 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "allowJs": false,
-    "types": ["bun-types"],
+    "types": ["bun-types", "jest", "jest-plugin-context"],
     "paths": {
       "@/*": ["./src/*"]
     }

@@ -1,3 +1,1 @@
-import { OAuth } from './oauth'
-
-export { OAuth }
+export { OAuth } from './oauth'
