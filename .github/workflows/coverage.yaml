@@ -1,0 +1,36 @@
+name: Coverage
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: antongolub/action-setup-bun@v1
+        with:
+          bun-version: 0.5.9
+          bun-config: '{"install": {"production": false}}'
+          cache: true
+          cache-bin: true
+
+      - uses: actions/cache@v3
+        id: bun-cache
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: ${{ runner.os }}-bun-
+
+      - run: bun install
+        if: ${{ steps.bun-cache.outputs.cache-hit != 'true' }}
+
+      - run: bun test:cov
+
+      - name: Upload coverage to Codecov
+       uses: codecov/codecov-action@v1
+       with:
+         token: ${{ secrets.CODECOV_TOKEN }}
