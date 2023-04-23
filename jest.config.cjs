@@ -25,9 +25,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '.js',
-    '/__snapshots__/',
-    'bin/index.ts',
-    'bin/flagOptions.ts'
+    '/__snapshots__/'
   ],
   moduleNameMapper: {
     '@/(.*)$': '<rootDir>/src/$1'
