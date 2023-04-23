@@ -7,7 +7,7 @@ module.exports = {
     '!**/node_modules/**'
   ],
   testMatch: [
-    '**/tests/?(*.)+(spec|test).ts?(x)'
+    '**/tests/**/?(*.)+(spec|test).ts?(x)'
   ],
   setupFilesAfterEnv: [
     'jest-plugin-context/setup'
@@ -25,11 +25,9 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '.js',
-    '/__snapshots__/',
-    'bin/index.ts',
-    'bin/flagOptions.ts'
+    '/__snapshots__/'
   ],
   moduleNameMapper: {
-    '@/(.*)$': '<rootDir>/src/$1',
-  },
+    '@/(.*)$': '<rootDir>/src/$1'
+  }
 }

@@ -46,3 +46,29 @@ oauth.refresh_token('refresh_token').then((response) => console.log({
   refresh_token: response.refresh_token,
 }))
 ```
+
+### Commit
+
+> Access Token(or Personal access token) must have `Contents` Read and write permission of `Repository permissions`
+
+```ts
+import { commit } from 'github-api-helper'
+
+commit({
+  owner: 'juunini',
+  repo: 'test',
+  accessToken: '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',
+  files: [
+    {
+      path: 'README.md',
+      data: '# GitHub API Helper'
+    },
+    {
+      path: 'src/index.ts',
+      data: 'console.log(\'Hello World\')'
+    }
+  ],
+  message: 'commit message'
+})
+  .then(console.log)
+```
