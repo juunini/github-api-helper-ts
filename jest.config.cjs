@@ -7,7 +7,7 @@ module.exports = {
     '!**/node_modules/**'
   ],
   testMatch: [
-    '**/tests/?(*.)+(spec|test).ts?(x)'
+    '**/tests/**/?(*.)+(spec|test).ts?(x)'
   ],
   setupFilesAfterEnv: [
     'jest-plugin-context/setup'
@@ -30,6 +30,6 @@ module.exports = {
     'bin/flagOptions.ts'
   ],
   moduleNameMapper: {
-    '@/(.*)$': '<rootDir>/src/$1',
-  },
+    '@/(.*)$': '<rootDir>/src/$1'
+  }
 }
