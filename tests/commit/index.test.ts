@@ -25,6 +25,10 @@ test('commit', async () => {
       path: 'test.txt',
       data: 'test'
     }],
+    committer: {
+      name: 'bot',
+      email: 'noreply@example.com'
+    },
     message: 'test'
   })
 

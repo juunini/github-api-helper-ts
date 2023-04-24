@@ -68,6 +68,10 @@ commit({
       data: 'console.log(\'Hello World\')'
     }
   ],
+  committer: {
+    name: 'bot',
+    email: 'noreply@example.com'
+  },
   message: 'commit message'
 })
   .then(console.log)

@@ -47,7 +47,11 @@ test('createCommit', async () => {
     accessToken: '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',
     parentSha: 'aa218f56b14c9653891f9e74264a383fa43fefbd',
     treeSha: '827efc6d56897b048c772eb4087f854f46256132',
-    message: 'my commit message'
+    message: 'my commit message',
+    committer: {
+      name: 'bot',
+      email: 'noreply@example.com'
+    }
   })
 
   expect(data.sha).toEqual(response.sha)
