@@ -39,11 +39,15 @@ interface CreateCommitProps {
   accessToken: string
   treeSha: string
   parentSha: string
+  committer: {
+    name: string
+    email: string
+  }
   message: string
 }
 
 export async function createCommit ({
-  owner, repo: repoName, accessToken, treeSha, parentSha, message
+  owner, repo: repoName, accessToken, treeSha, parentSha, committer, message
 }: CreateCommitProps): Promise<CreateCommitResponse> {
   return await api({
     uri: `/repos/${owner}/${repoName}/git/commits`,
@@ -53,8 +57,8 @@ export async function createCommit ({
       message,
       tree: treeSha,
       author: {
-        name: 'juunini',
-        email: 'juuni.ni.i@gmail.com',
+        name: committer.name,
+        email: committer.email,
         date: new Date().toISOString()
       },
       parents: [parentSha]
