@@ -7,6 +7,7 @@ interface CommitProps {
   accessToken: string
   owner: string
   repo: string
+  branch: string
   committer: {
     name: string
     email: string
@@ -16,7 +17,7 @@ interface CommitProps {
 }
 
 export async function commit ({
-  accessToken, owner, repo, committer, files, message
+  accessToken, owner, repo, branch, committer, files, message
 }: CommitProps): Promise<UpdateReferenceResponse> {
   const reference = await getReference({ owner, repo, accessToken })
   const gitFiles = await Promise.all(
@@ -26,5 +27,5 @@ export async function commit ({
   )
   const tree = await createTree({ owner, repo, accessToken, parentSha: reference.object.sha, files: gitFiles })
   const commit = await createCommit({ owner, repo, accessToken, parentSha: reference.object.sha, treeSha: tree.sha, committer, message })
-  return await updateReference({ owner, repo, accessToken, commitSha: commit.sha })
+  return await updateReference({ owner, repo, branch, accessToken, commitSha: commit.sha })
 }

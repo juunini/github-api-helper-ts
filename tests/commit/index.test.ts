@@ -20,6 +20,7 @@ test('commit', async () => {
   const data = await commit({
     owner: 'juunini',
     repo: 'github-api',
+    branch: 'main',
     accessToken: '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',
     files: [{
       path: 'test.txt',

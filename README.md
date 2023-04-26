@@ -57,6 +57,7 @@ import { commit } from 'github-api-helper'
 commit({
   owner: 'juunini',
   repo: 'test',
+  branch: 'main',
   accessToken: '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',
   files: [
     {

@@ -46,6 +46,7 @@ test('updateReference', async () => {
   const data = await updateReference({
     owner: 'juunini',
     repo: 'github-api',
+    branch: 'main',
     accessToken: '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',
     commitSha: 'aa218f56b14c9653891f9e74264a383fa43fefbd'
   })

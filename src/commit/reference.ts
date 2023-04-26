@@ -28,6 +28,7 @@ interface UpdateReferenceProps {
   commitSha: string
   owner: string
   repo: string
+  branch: string
   accessToken: string
 }
 
@@ -42,11 +43,17 @@ export interface UpdateReferenceResponse {
   }
 }
 
-export async function updateReference ({ commitSha, owner, repo, accessToken }: UpdateReferenceProps): Promise<UpdateReferenceResponse> {
-  return await api({
-    uri: `/repos/${owner}/${repo}/git/refs/heads/main`,
+export async function updateReference ({
+  commitSha,
+  owner,
+  repo,
+  branch,
+  accessToken
+}: UpdateReferenceProps): Promise<UpdateReferenceResponse> {
+  return (await api({
+    uri: `/repos/${owner}/${repo}/git/refs/heads/${branch}`,
     accessToken,
     method: 'PATCH',
     body: JSON.stringify({ sha: commitSha })
-  }) as UpdateReferenceResponse
+  })) as UpdateReferenceResponse
 }
