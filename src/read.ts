@@ -40,14 +40,17 @@ interface ReadProps {
   owner: string
   repo: string
   path: string
+  branch?: string
   accessToken: string
 }
 
 export async function read (
-  { owner, repo, path, accessToken }: ReadProps
+  { owner, repo, path, branch, accessToken }: ReadProps
 ): Promise<ReadFileResponse | ReadDirectoryResponse[]> {
+  const ref = branch === undefined || branch === '' ? '' : `?ref=${branch}`
+
   return await api({
-    uri: `/repos/${owner}/${repo}/contents/${path}`,
+    uri: `/repos/${owner}/${repo}/contents/${path}${ref}`,
     accessToken
   }) as ReadFileResponse | ReadDirectoryResponse[]
 }

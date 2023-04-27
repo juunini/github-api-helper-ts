@@ -131,4 +131,35 @@ describe('read', () => {
       expect(data instanceof Array).toBeTruthy()
     })
   })
+
+  context('when branch is provided', () => {
+    const path = 'test'
+    const branch = 'test'
+
+    it('should request with "ref" query param', async () => {
+      // @ts-expect-error
+      globalThis.fetch = async (options) => await Promise.resolve({
+        json: async () => await Promise.resolve({})
+      })
+
+      const fetchSpy = jest.spyOn(globalThis, 'fetch')
+      await read({
+        ...request,
+        path,
+        branch
+      })
+
+      expect(fetchSpy).toBeCalledWith(
+        `https://api.github.com/repos/${request.owner}/${request.repo}/contents/${path}?ref=${branch}`,
+        {
+          headers: {
+            Accept: 'application/vnd.github+json',
+            Authorization: `Bearer ${request.accessToken}`,
+            'X-GitHub-Api-Version': '2022-11-28'
+          },
+          method: 'GET'
+        }
+      )
+    })
+  })
 })
