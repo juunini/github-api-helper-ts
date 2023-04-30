@@ -14,7 +14,8 @@ test('api with method', async () => {
 
   // @ts-expect-error
   globalThis.fetch = async () => await Promise.resolve({
-    json: async () => await Promise.resolve(response)
+    json: async () => await Promise.resolve(response),
+    status: 200
   })
 
   const data = await api({
@@ -42,7 +43,8 @@ test('api without method', async () => {
 
   // @ts-expect-error
   globalThis.fetch = async () => await Promise.resolve({
-    json: async () => await Promise.resolve(response)
+    json: async () => await Promise.resolve(response),
+    status: 200
   })
 
   const data = await api({
@@ -52,4 +54,32 @@ test('api without method', async () => {
 
   // @ts-expect-error
   expect(data.object.sha).toEqual(response.object.sha)
+})
+
+test('api with error', async () => {
+  const response = {
+    message: 'Update is not a fast forward',
+    documentation_url: 'https://docs.github.com/rest/reference/git#update-a-reference'
+  }
+
+  // @ts-expect-error
+  globalThis.fetch = async () => await Promise.resolve({
+    json: async () => await Promise.resolve(response),
+    status: 422
+  })
+
+  try {
+    await api({
+      uri: '/repos/juunini/test/git/refs/heads/main',
+      accessToken: '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',
+      method: 'PATCH',
+      body: JSON.stringify({ sha: '0ce17c726076e7873f1f58bdd73442866cc55506' })
+    })
+  } catch (e) {
+    // @ts-expect-error
+    expect(e.message).toEqual('422: Update is not a fast forward')
+    return
+  }
+
+  throw new Error('failed')
 })

@@ -15,5 +15,12 @@ export async function api ({ uri, accessToken, method = 'GET', body }: APIProps)
     },
     body
   })
-  return await response.json()
+  const data = await response.json() as any
+
+  if (response.status >= 400) {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    throw new Error(`${response.status}: ${data.message}`)
+  }
+
+  return data
 }
