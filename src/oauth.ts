@@ -77,3 +77,43 @@ export class OAuth {
     return data as TokenResponse
   }
 }
+
+interface LoginURLProps {
+  clientId: string
+  redirectURL?: string
+  login?: string
+  scope?: string
+  state?: string
+  allowSignup?: boolean
+}
+
+export function loginURL ({
+  clientId,
+  redirectURL,
+  scope = 'user:email',
+  login,
+  state,
+  allowSignup
+}: LoginURLProps): URL {
+  const url = new URL('https://github.com/login/oauth/authorize')
+  url.searchParams.set('scope', scope)
+  url.searchParams.set('client_id', clientId)
+
+  if (redirectURL !== undefined) {
+    url.searchParams.set('redirect_url', redirectURL)
+  }
+
+  if (login !== undefined) {
+    url.searchParams.set('login', login)
+  }
+
+  if (state !== undefined) {
+    url.searchParams.set('state', state)
+  }
+
+  if (allowSignup !== undefined) {
+    url.searchParams.set('allowSignup', allowSignup.toString())
+  }
+
+  return url
+}
