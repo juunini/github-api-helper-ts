@@ -20,7 +20,11 @@ class TokenError extends Error {
 }
 
 export class OAuth {
-  constructor (private readonly clientId: string, private readonly clientSecret: string) {}
+  public loginURL: URL
+
+  constructor (private readonly clientId: string, private readonly clientSecret: string) {
+    this.loginURL = new URL(`https://github.com/login/oauth/authorize?scope=user:email&client_id=${this.clientId}`)
+  }
 
   public async accessToken (code: string): Promise<TokenResponse> {
     const response = await fetch(

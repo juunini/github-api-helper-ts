@@ -35,7 +35,8 @@ bun add github-api-helper
 ```ts
 import { OAuth } from 'github-api-helper'
 
-const oauth = OAuth('client_id', 'client_secret')
+const oauth = new OAuth('client_id', 'client_secret')
+const loginURL = oauth.loginURL
 
 oauth.access_token('code').then((response) => console.log({
   access_token: response.access_token,
