@@ -33,12 +33,41 @@ interface UserResponse {
   'updated_at': string
 }
 
-export async function user (accessToken: string): Promise<UserResponse> {
+interface Props {
+  accessToken?: string
+  id?: number
+}
+
+export async function user ({ accessToken, id }: Props): Promise<UserResponse> {
+  if (id !== undefined) {
+    return await userById(id)
+  }
+
+  if (accessToken === undefined) {
+    throw new Error('accessToken or id is required')
+  }
+
+  return await userByAccessToken(accessToken)
+}
+
+async function userByAccessToken (accessToken: string): Promise<UserResponse> {
   const response = await fetch('https://api.github.com/user', {
     headers: {
       Authorization: `Bearer ${accessToken}`
     }
   })
+  const data = await response.json() as any
+
+  if (response.status >= 400) {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    throw new Error(`${response.status}: ${data.message}`)
+  }
+
+  return data
+}
+
+async function userById (id: number): Promise<UserResponse> {
+  const response = await fetch(`https://api.github.com/user/${id}`)
   const data = await response.json() as any
 
   if (response.status >= 400) {

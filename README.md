@@ -107,5 +107,7 @@ read({
 ```ts
 import { user } from 'github-api-helper'
 
-user('accessToken').then(console.log)
+user({ accessToken: 'accessToken' }).then(console.log)
+// or
+user({ id: 41536271 }).then(console.log)
 ```
