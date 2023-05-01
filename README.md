@@ -101,3 +101,11 @@ read({
   }
 })
 ```
+
+### User
+
+```ts
+import { user } from 'github-api-helper'
+
+user('accessToken').then(console.log)
+```
